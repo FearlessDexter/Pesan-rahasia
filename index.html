@@ -3,26 +3,31 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SURPRISE BUAT KAMU! 🎀</title>
+    <title>PESAN RAHASIA! 🤫✨</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Arial', sans-serif;
-            /* BACKGROUND LANGSUNG HELLO KITTY */
-            background: url('https://i.pinimg.com/originals/30/e1/92/30e19253ec026365449265f2427f7422.jpg') no-repeat center center fixed;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            /* Pakai background pink cerah sebagai cadangan */
+            background-color: #ffc0cb;
+            /* Jika kamu punya file background sendiri, ganti url di bawah ini */
+            background-image: url('https://w0.peakpx.com/wallpaper/429/952/HD-wallpaper-hello-kitty-sweet-pink-cartoon-kitty-pink-sweet-cat.jpg');
             background-size: cover;
+            background-position: center;
+            background-attachment: fixed;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
+            text-align: center;
         }
 
         #overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: pink;
+            background: rgba(255, 182, 193, 0.95);
             display: flex;
             justify-content: center;
             align-items: center;
@@ -30,104 +35,153 @@
         }
 
         #konten-utama {
-            background: rgba(255, 255, 255, 0.9);
+            background-color: rgba(255, 255, 255, 0.9);
             padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 0 20px rgba(255, 20, 147, 0.5);
-            text-align: center;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            backdrop-filter: blur(5px);
+            z-index: 10;
             max-width: 85%;
-            display: none;
-            border: 5px solid #ffb6c1;
-            position: relative;
-        }
-
-        .foto-container {
-            width: 150px; height: 150px;
-            border-radius: 50%;
-            overflow: hidden;
-            margin: 0 auto 15px;
+            display: none; 
             border: 4px solid #ff69b4;
         }
 
-        .foto-container img { width: 100%; height: 100%; object-fit: cover; }
+        .foto-container {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid #ff69b4;
+            overflow: hidden;
+            margin: 0 auto 20px auto;
+            background: #fff;
+        }
 
-        button {
+        .foto-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        #tombol-mulai {
             padding: 15px 30px;
-            font-size: 1.2rem;
-            background: #ff1493;
+            font-size: 1.2em;
+            background-color: #ff1493;
             color: white;
             border: none;
             border-radius: 50px;
             cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            font-weight: bold;
             animation: pulse 1.5s infinite;
         }
 
         @keyframes pulse {
             0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
+            50% { transform: scale(1.05); }
             100% { transform: scale(1); }
         }
 
-        /* PARTIKEL LEDAKAN */
+        .heart {
+            position: fixed;
+            top: -10vh;
+            animation: fall 3s linear forwards;
+            z-index: 1;
+        }
+
+        @keyframes fall {
+            to { transform: translateY(110vh); }
+        }
+
         .confetti {
             position: absolute;
-            width: 10px; height: 10px;
-            border-radius: 50%;
+            width: 10px;
+            height: 10px;
+            z-index: 50;
             pointer-events: none;
+            border-radius: 50%;
         }
     </style>
 </head>
 <body>
 
     <div id="overlay">
-        <button onclick="bukaKejutan()">KLIK UNTUK KEJUTAN! ✨</button>
+        <button id="tombol-mulai" onclick="mulaiSemua()">KLIK DISINI! 🎁✨</button>
     </div>
 
+    <audio id="laguku" loop>
+        <source src="lagu.mp3" type="audio/mpeg">
+    </audio>
+
     <div id="konten-utama">
-        <h1 style="color: #ff1493;">Hi Kamu! 🎀</h1>
+        <h1 style="color: #d63384;">Hi Kamu! ✨</h1>
+        
         <div class="foto-container">
-            <img src="https://i.pinimg.com/originals/ce/dd/a7/cedda739a489745166299f0e15967008.gif">
+            <img src="foto.jpg" alt="Foto Kamu">
         </div>
-        <p><b>Kamu itu hebat banget! 🥳</b></p>
-        <p>Teruslah bersinar seperti bintang. ✨</p>
+
+        <div class="kata-kata">
+            <p>Spesial buat kamu, cuma mau ngingetin...</p>
+            <p>Kalau kamu itu <strong>HEBAT BANGET!</strong> 🥳</p>
+            <p>Jangan pernah menyerah ya, tetap semangat! 💪🏻🎀</p>
+            <p>Pertahankan senyum manismu 😊</p>
+        </div>
     </div>
 
     <script>
-        function bukaKejutan() {
+        function mulaiSemua() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('konten-utama').style.display = 'block';
-            
-            // Trigger Ledakan 5 kali
-            for(let i=0; i<5; i++) {
+
+            const lagu = document.getElementById('laguku');
+            lagu.play().catch(e => console.log("Musik butuh interaksi: ", e));
+
+            setInterval(buatHeart, 300);
+
+            // Efek ledakan kembang api
+            for(let i=0; i<8; i++) {
                 setTimeout(buatLedakan, i * 300);
             }
         }
 
+        function buatHeart() {
+            const heart = document.createElement('div');
+            heart.classList.add('heart');
+            const emojis = ['❤️', '💖', '🎀', '✨', '🌸'];
+            heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
+            heart.style.left = Math.random() * 100 + "vw";
+            heart.style.fontSize = Math.random() * 20 + 20 + "px";
+            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
+            document.body.appendChild(heart);
+            setTimeout(() => { heart.remove(); }, 4000);
+        }
+
         function buatLedakan() {
-            const colors = ['#ff69b4', '#ff1493', '#ffd700', '#00ff00', '#00ffff'];
-            for (let i = 0; i < 40; i++) {
-                const conf = document.createElement('div');
-                conf.classList.add('confetti');
-                conf.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
-                conf.style.left = '50%';
-                conf.style.top = '50%';
+            const warna = ['#ff69b4', '#ff1493', '#ffd700', '#00ffff', '#ffffff'];
+            // Titik ledakan acak di sekitar kotak konten
+            const randomX = Math.random() * 200 - 100; 
+            const randomY = Math.random() * 200 - 100;
+
+            for (let i = 0; i < 30; i++) {
+                const c = document.createElement('div');
+                c.classList.add('confetti');
+                c.style.backgroundColor = warna[Math.floor(Math.random() * warna.length)];
+                c.style.left = '50%';
+                c.style.top = '50%';
                 
                 const angle = Math.random() * Math.PI * 2;
-                const velocity = Math.random() * 150 + 50;
-                const tx = Math.cos(angle) * velocity + 'px';
-                const ty = Math.sin(angle) * velocity + 'px';
+                const dist = Math.random() * 100 + 100;
+                const x = (Math.cos(angle) * dist) + randomX + 'px';
+                const y = (Math.sin(angle) * dist) + randomY + 'px';
 
-                document.body.appendChild(conf);
+                document.body.appendChild(c);
 
-                conf.animate([
-                    { transform: 'translate(-50%, -50%)', opacity: 1 },
-                    { transform: `translate(calc(-50% + ${tx}), calc(-50% + ${ty}))`, opacity: 0 }
-                ], {
-                    duration: 1000,
-                    easing: 'ease-out'
-                }).onfinish = () => conf.remove();
+                c.animate([
+                    { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
+                    { transform: `translate(calc(-50% + ${x}), calc(-50% + ${y})) scale(0)`, opacity: 0 }
+                ], { duration: 1200, easing: 'ease-out' }).onfinish = () => c.remove();
             }
         }
     </script>
 </body>
-</html>
+    </html>
+    
