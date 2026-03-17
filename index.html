@@ -3,109 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PESAN RAHASIA! 🤫✨</title>
+    <title>PESAN UNTUK KAMU 🎀</title>
     <style>
         body {
             margin: 0;
             padding: 0;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            /* Pakai background pink cerah sebagai cadangan */
-            background-color: #ffc0cb;
-            /* Jika kamu punya file background sendiri, ganti url di bawah ini */
+            font-family: 'Arial', sans-serif;
+            /* Warna pink terang agar tidak putih polos */
+            background-color: #ffc0cb; 
             background-image: url('https://w0.peakpx.com/wallpaper/429/952/HD-wallpaper-hello-kitty-sweet-pink-cartoon-kitty-pink-sweet-cat.jpg');
             background-size: cover;
             background-position: center;
-            background-attachment: fixed;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
             overflow: hidden;
-            text-align: center;
         }
 
         #overlay {
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(255, 182, 193, 0.95);
+            background: #ffb6c1;
             display: flex;
+            flex-direction: column;
             justify-content: center;
             align-items: center;
             z-index: 100;
         }
 
         #konten-utama {
-            background-color: rgba(255, 255, 255, 0.9);
-            padding: 30px;
+            background: rgba(255, 255, 255, 0.9);
+            padding: 25px;
             border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(5px);
-            z-index: 10;
-            max-width: 85%;
-            display: none; 
+            text-align: center;
+            width: 80%;
+            display: none;
             border: 4px solid #ff69b4;
+            position: relative;
         }
 
         .foto-container {
-            width: 200px;
-            height: 200px;
+            width: 180px; height: 180px;
             border-radius: 50%;
-            border: 5px solid #ff69b4;
             overflow: hidden;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 15px;
+            border: 5px solid #ff69b4;
             background: #fff;
         }
 
-        .foto-container img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
+        .foto-container img { width: 100%; height: 100%; object-fit: cover; }
 
-        #tombol-mulai {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            background-color: #ff1493;
+        button {
+            padding: 15px 35px;
+            font-size: 1.2rem;
+            background: #ff1493;
             color: white;
-            border: none;
+            border: 3px solid white;
             border-radius: 50px;
             cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
             font-weight: bold;
-            animation: pulse 1.5s infinite;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
-        }
+        /* Gaya Emoji Hujan */
+        .heart { position: fixed; top: -10vh; animation: fall 3s linear forwards; z-index: 1; }
+        @keyframes fall { to { transform: translateY(110vh); } }
 
-        .heart {
-            position: fixed;
-            top: -10vh;
-            animation: fall 3s linear forwards;
-            z-index: 1;
-        }
-
-        @keyframes fall {
-            to { transform: translateY(110vh); }
-        }
-
+        /* Partikel Ledakan Kembang Api */
         .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            z-index: 50;
-            pointer-events: none;
-            border-radius: 50%;
+            position: absolute; width: 10px; height: 10px;
+            border-radius: 50%; pointer-events: none; z-index: 99;
         }
     </style>
 </head>
 <body>
 
     <div id="overlay">
-        <button id="tombol-mulai" onclick="mulaiSemua()">KLIK DISINI! 🎁✨</button>
+        <h2 style="color: white;">Ada Pesan Rahasia!</h2>
+        <button onclick="buka()">BUKA SEKARANG 🎁</button>
     </div>
 
     <audio id="laguku" loop>
@@ -113,75 +90,57 @@
     </audio>
 
     <div id="konten-utama">
-        <h1 style="color: #d63384;">Hi Kamu! ✨</h1>
-        
+        <h1 style="color: #ff1493;">Hi Kamu! ✨</h1>
         <div class="foto-container">
-            <img src="foto.jpg" alt="Foto Kamu">
+            <img src="foto.jpg" onerror="this.src='https://media.tenor.com/2X8K-78D7mUAAAAM/hello-kitty-hi.gif'">
         </div>
-
-        <div class="kata-kata">
-            <p>Spesial buat kamu, cuma mau ngingetin...</p>
-            <p>Kalau kamu itu <strong>HEBAT BANGET!</strong> 🥳</p>
-            <p>Jangan pernah menyerah ya, tetap semangat! 💪🏻🎀</p>
-            <p>Pertahankan senyum manismu 😊</p>
-        </div>
+        <p style="font-size: 1.1rem; font-weight: bold;">Kamu itu hebat banget! 🥳</p>
+        <p>Tetap semangat & jangan menyerah ya! 💪🏻🎀</p>
     </div>
 
     <script>
-        function mulaiSemua() {
+        function buka() {
             document.getElementById('overlay').style.display = 'none';
             document.getElementById('konten-utama').style.display = 'block';
+            
+            var audio = document.getElementById('laguku');
+            audio.play();
 
-            const lagu = document.getElementById('laguku');
-            lagu.play().catch(e => console.log("Musik butuh interaksi: ", e));
+            // Jalankan hujan emoji
+            setInterval(function() {
+                var h = document.createElement('div');
+                h.classList.add('heart');
+                h.innerHTML = "💖";
+                h.style.left = Math.random() * 100 + "vw";
+                h.style.fontSize = "25px";
+                document.body.appendChild(h);
+                setTimeout(() => h.remove(), 3000);
+            }, 300);
 
-            setInterval(buatHeart, 300);
-
-            // Efek ledakan kembang api
-            for(let i=0; i<8; i++) {
-                setTimeout(buatLedakan, i * 300);
+            // Ledakan kembang api
+            for(var i=0; i<5; i++) {
+                setTimeout(ledakan, i * 400);
             }
         }
 
-        function buatHeart() {
-            const heart = document.createElement('div');
-            heart.classList.add('heart');
-            const emojis = ['❤️', '💖', '🎀', '✨', '🌸'];
-            heart.innerText = emojis[Math.floor(Math.random() * emojis.length)];
-            heart.style.left = Math.random() * 100 + "vw";
-            heart.style.fontSize = Math.random() * 20 + 20 + "px";
-            heart.style.animationDuration = Math.random() * 2 + 3 + "s";
-            document.body.appendChild(heart);
-            setTimeout(() => { heart.remove(); }, 4000);
-        }
-
-        function buatLedakan() {
-            const warna = ['#ff69b4', '#ff1493', '#ffd700', '#00ffff', '#ffffff'];
-            // Titik ledakan acak di sekitar kotak konten
-            const randomX = Math.random() * 200 - 100; 
-            const randomY = Math.random() * 200 - 100;
-
-            for (let i = 0; i < 30; i++) {
-                const c = document.createElement('div');
+        function ledakan() {
+            var colors = ['#ff69b4', '#ff1493', '#ffd700', '#00ffff'];
+            for (var i = 0; i < 30; i++) {
+                var c = document.createElement('div');
                 c.classList.add('confetti');
-                c.style.backgroundColor = warna[Math.floor(Math.random() * warna.length)];
-                c.style.left = '50%';
-                c.style.top = '50%';
-                
-                const angle = Math.random() * Math.PI * 2;
-                const dist = Math.random() * 100 + 100;
-                const x = (Math.cos(angle) * dist) + randomX + 'px';
-                const y = (Math.sin(angle) * dist) + randomY + 'px';
-
+                c.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                c.style.left = '50%'; c.style.top = '50%';
+                var angle = Math.random() * Math.PI * 2;
+                var dist = Math.random() * 150 + 50;
+                var x = Math.cos(angle) * dist + 'px';
+                var y = Math.sin(angle) * dist + 'px';
                 document.body.appendChild(c);
-
                 c.animate([
                     { transform: 'translate(-50%, -50%) scale(1)', opacity: 1 },
                     { transform: `translate(calc(-50% + ${x}), calc(-50% + ${y})) scale(0)`, opacity: 0 }
-                ], { duration: 1200, easing: 'ease-out' }).onfinish = () => c.remove();
+                ], { duration: 1000, easing: 'ease-out' }).onfinish = () => c.remove();
             }
         }
     </script>
 </body>
-    </html>
-    
+</html>
